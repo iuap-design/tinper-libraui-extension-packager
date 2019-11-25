@@ -5,11 +5,11 @@ interface PackagerOptions {
   command: 'build' | 'debug'
   directory: string
 }
-const packager = (options: PackagerOptions) => {
+const packager = (options: PackagerOptions): void => {
   // TODO: implement this function
   const instance = webpack(baseConfig)
   if (options.command === 'build') {
-    instance.run(()=> {})
+    instance.run(() => {})
   } else {
     instance.watch({}, () => {})
   }

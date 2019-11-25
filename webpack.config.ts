@@ -19,7 +19,7 @@ export default {
       src: path.join(__dirname, './src'),
       business: path.join(__dirname, './src/business')
     },
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   externals: ['react'],
   module: {
@@ -30,22 +30,23 @@ export default {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true
-        }}
-      ],
-    },{
+        }
+      }
+      ]
+    }, {
       test: /\.tsx?$/,
       exclude: path.resolve(__dirname, 'node_modules'),
       use: [
-        {loader: 'babel-loader'},
-        {loader: 'awesome-typescript-loader'}
+        { loader: 'babel-loader' },
+        { loader: 'awesome-typescript-loader' }
       ]
-    },{
+    }, {
       test: /\.(js|jsx)$/,
-      loader: 'source-map-loader',
-    },{
+      loader: 'source-map-loader'
+    }, {
       test: /\.(map)$/,
-      loader: 'ignore-map-loader',
-    },{
+      loader: 'ignore-map-loader'
+    }, {
       test: /\.(jpg|png|gif|ico|svg)$/,
       loader: 'url-loader',
       options: {
@@ -64,14 +65,14 @@ export default {
         loader: MiniCssExtractPlugin.loader,
         options: {
           hmr: !isProduction
-        },
+        }
       }, {
         loader: 'css-loader',
         options: {
           modules: true,
           importLoaders: 2,
           sourceMap: !isProduction
-        },
+        }
       }, {
         loader: 'postcss-loader',
         options: {
@@ -93,7 +94,7 @@ export default {
         loader: MiniCssExtractPlugin.loader,
         options: {
           hmr: !isProduction
-        },
+        }
       }, {
         loader: 'css-loader',
         options: {
@@ -117,7 +118,7 @@ export default {
     new MiniCssExtractPlugin({
       filename: 'index.css',
       chunkFilename: 'index.css',
-      ignoreOrder: false, // Enable to remove warnings about conflicting order
+      ignoreOrder: false // Enable to remove warnings about conflicting order
     })
   ].concat(
     isProduction

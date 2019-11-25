@@ -2,7 +2,7 @@
 import packager from './index'
 import * as yargs from 'yargs'
 
-function showHelp () {
+function showHelp (): void {
   console.log(`
   usage: extension-packager [build|debug] <dir>
   `)
@@ -14,7 +14,7 @@ const directory = argv._[1]
 
 const allowCommands = ['build', 'debug']
 
-if (!command || !directory || !allowCommands.includes(command)) {
+if (directory === undefined || !allowCommands.includes(command)) {
   showHelp()
   process.exit(1)
 }
