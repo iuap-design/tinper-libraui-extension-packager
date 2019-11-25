@@ -1,9 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+import path from 'path'
+import autoprefixer from 'autoprefixer'
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -11,7 +10,7 @@ export default {
   mode: isProduction ? 'production' as const : 'development' as const,
   entry: { index: 'index.js' },
   output: {
-    path: './build',
+    path: path.join(__dirname, 'build'),
     filename: 'index.js',
     chunkFilename: 'index.js'
   },
@@ -91,7 +90,7 @@ export default {
     }, {
       test: /\.css$/,
       use: [{
-        loader: isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+        loader: MiniCssExtractPlugin.loader,
         options: {
           hmr: !isProduction
         },
