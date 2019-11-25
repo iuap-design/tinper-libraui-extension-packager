@@ -2,8 +2,9 @@
   "name": "@mdf/extension-packager",
   "version": "0.0.0",
   "description": "MDF components extension packager",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": "./lib/cli.js",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
