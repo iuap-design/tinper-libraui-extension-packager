@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
-  mode: isProduction ? 'production' : 'development',
+  mode: isProduction ? 'production' as const : 'development' as const,
   entry: { index: 'index.js' },
   output: {
     path: './build',
@@ -135,5 +135,5 @@ export default {
       ]
       : []
   ),
-  devtool: isProduction ? 'source-map' : 'eval-source-map'
+  devtool: isProduction ? 'source-map' as const : 'eval-source-map' as const
 }

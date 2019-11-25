@@ -35,6 +35,7 @@
     "@commitlint/config-conventional": "^8.2.0",
     "@iuap/eslint-config": "^0.1.4",
     "@types/react": "^16.9.13",
+    "@types/webpack": "^4.41.0",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/parser": "^2.8.0",
     "eslint": "^6.4.0",
@@ -53,6 +54,7 @@
     "react": "^16.12.0"
   },
   "dependencies": {
+    "webpack": "^4.41.2",
     "yargs": "^15.0.2"
   }
 }
