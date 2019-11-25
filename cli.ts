@@ -18,3 +18,8 @@ if (!command || !directory || !allowCommands.includes(command)) {
   showHelp()
   process.exit(1)
 }
+
+packager({
+  command: command as any,
+  directory
+})
