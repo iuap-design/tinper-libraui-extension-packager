@@ -32,6 +32,7 @@ const packager = (options: PackagerOptions): void => {
     process.exit(1)
   } else {
     baseConfig.entry.index = manifest.index
+    baseConfig.output.library = `MDF_${manifest.id}`
   }
   baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
   const instance = webpack(baseConfig)

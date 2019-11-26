@@ -12,7 +12,8 @@ const config = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
-    chunkFilename: 'index.js'
+    library: 'MDX',
+    libraryTarget: 'umd' as const
   },
   resolve: {
     alias: {
