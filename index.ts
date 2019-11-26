@@ -10,7 +10,7 @@ const packager = (options: PackagerOptions): void => {
   const instance = webpack(baseConfig)
   if (options.command === 'build') {
     instance.run((err, stats) => {
-      if (err) {
+      if (err instanceof Error) {
         console.error(err)
       }
       if (stats.hasWarnings()) {
@@ -23,7 +23,7 @@ const packager = (options: PackagerOptions): void => {
           console.error(item)
         }
       }
-      if (!err && !stats.hasErrors() && !stats.hasWarnings()) {
+      if (!(err instanceof Error) && !stats.hasErrors() && !stats.hasWarnings()) {
         console.log('success!')
       }
     })
