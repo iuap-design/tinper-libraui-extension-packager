@@ -39,7 +39,7 @@ const packager = (options: PackagerOptions): void => {
     return
   } else {
     baseConfig.entry.index = manifestFile.index
-    baseConfig.output.library = `MDF_${manifestFile.id}`
+    // baseConfig.output.library = `MDF_${manifestFile.id}`
   }
   baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
   const manifestOutputPath = path.join(baseConfig.output.path, 'manifest.json')

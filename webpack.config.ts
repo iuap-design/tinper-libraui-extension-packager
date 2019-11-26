@@ -12,7 +12,7 @@ const config = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
-    library: 'MDX',
+    library: '__MDX__',
     libraryTarget: 'umd' as const,
     globalObject: 'this'
   },
