@@ -3,10 +3,11 @@ import autoprefixer from 'autoprefixer'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import { Configuration } from 'webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-export default {
+const config: Configuration = {
   mode: isProduction ? 'production' as const : 'development' as const,
   entry: { index: 'index.js' },
   output: {
@@ -19,7 +20,11 @@ export default {
       src: path.join(__dirname, './src'),
       business: path.join(__dirname, './src/business')
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [path.join(__dirname, '..', 'node_modules'), 'node_modules']
+  },
+  resolveLoader: {
+    modules: ['node_modules', path.join(__dirname, 'node_modules'), path.join(__dirname, '..', 'node_modules')]
   },
   externals: ['react'],
   module: {
@@ -137,3 +142,5 @@ export default {
   ),
   devtool: isProduction ? 'source-map' as const : 'eval-source-map' as const
 }
+
+export default config
