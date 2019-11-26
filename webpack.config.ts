@@ -3,11 +3,10 @@ import autoprefixer from 'autoprefixer'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import { Configuration } from 'webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const config: Configuration = {
+const config = {
   mode: isProduction ? 'production' as const : 'development' as const,
   entry: { index: 'index.js' },
   output: {

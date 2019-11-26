@@ -31,8 +31,9 @@ const packager = (options: PackagerOptions): void => {
   if (!manifest) {
     process.exit(1)
   } else {
-    (baseConfig.entry as webpack.Entry).index = manifest.index
+    baseConfig.entry.index = manifest.index
   }
+  baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
   const instance = webpack(baseConfig)
   if (options.command === 'build') {
     instance.run((err, stats) => {
