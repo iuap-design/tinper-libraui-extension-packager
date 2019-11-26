@@ -44,7 +44,7 @@ const config = {
       exclude: path.resolve(__dirname, 'node_modules'),
       use: [
         { loader: 'babel-loader' },
-        { loader: 'awesome-typescript-loader' }
+        { loader: 'awesome-typescript-loader', options: { silent: true } }
       ]
     }, {
       test: /\.(js|jsx)$/,
