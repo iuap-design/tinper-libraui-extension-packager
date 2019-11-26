@@ -13,7 +13,8 @@ const config = {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
     library: 'MDX',
-    libraryTarget: 'umd' as const
+    libraryTarget: 'umd' as const,
+    globalObject: 'this'
   },
   resolve: {
     alias: {
