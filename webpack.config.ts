@@ -31,10 +31,10 @@ const config = {
   externals: [
     {
       react: {
-        commonjs: "React",
-        commonjs2: "React",
-        amd: "React",
-        root: "React"
+        commonjs: 'React',
+        commonjs2: 'React',
+        amd: 'React',
+        root: 'React'
       }
     }
   ],
@@ -53,15 +53,18 @@ const config = {
       test: /\.tsx?$/,
       exclude: path.resolve(__dirname, 'node_modules'),
       use: [
-        { loader: 'awesome-typescript-loader', options: {
-          silent: true,
-          getCustomTransformers: () => ({
-            before: [ TsImportPluginFactory([
-              { libraryName: 'antd', libraryDirectory: 'lib', style: true },
-              { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: 'css' }
-            ]) ]
-          }),
-        } }
+        {
+          loader: 'awesome-typescript-loader',
+          options: {
+            silent: true,
+            getCustomTransformers: () => ({
+              before: [TsImportPluginFactory([
+                { libraryName: 'antd', libraryDirectory: 'lib', style: true },
+                { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: 'css' }
+              ])]
+            })
+          }
+        }
       ]
     }, {
       test: /\.(js|jsx)$/,

@@ -9,10 +9,10 @@
     "prepublishOnly": "npm run build",
     "build": "rm -rf lib && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:quiet": "npm run lint -- --quiet",
     "lint:fix": "npm run lint -- --quiet --fix",
-    "lint:git": "git diff --cached --name-only --diff-filter=ACM | grep '\\.jsx\\?$' | xargs eslint"
+    "lint:git": "git diff --cached --name-only --diff-filter=ACM | grep '\\.[tj]sx\\?$' | xargs eslint"
   },
   "husky": {
     "hooks": {

@@ -36,60 +36,59 @@ const packager = (options: PackagerOptions): void => {
   const manifestFile = getManifestFile(options.directory)
   if (!manifestFile) {
     process.exit(1)
-    return
   } else {
     baseConfig.entry.index = manifestFile.index
     // baseConfig.output.library = `MDF_${manifestFile.id}`
-  }
-  baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
-  const manifestOutputPath = path.join(baseConfig.output.path, 'manifest.json')
-  const instance = webpack(baseConfig)
-  if (options.command === 'build') {
-    instance.run((err, stats) => {
-      if (err instanceof Error) {
-        console.error(err)
-      }
-      if (stats.hasWarnings()) {
-        for (const item of stats.toJson().warnings) {
-          console.warn(item)
+    baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
+    const manifestOutputPath = path.join(baseConfig.output.path, 'manifest.json')
+    const instance = webpack(baseConfig)
+    if (options.command === 'build') {
+      instance.run((err, stats) => {
+        if (err instanceof Error) {
+          console.error(err)
         }
-      }
-      if (stats.hasErrors()) {
-        for (const item of stats.toJson().errors) {
-          console.error(item)
-        }
-      }
-      if (!(err instanceof Error) && !stats.hasErrors() && !stats.hasWarnings()) {
-        const indexFilePath = path.join(baseConfig.output.path, baseConfig.output.filename)
-        try {
-          let manifest: Manifest = {
-            id: manifestFile.id,
-            version: manifestFile.version,
-            name: manifestFile.version,
-            description: manifestFile.description,
-            components: []
+        if (stats.hasWarnings()) {
+          for (const item of stats.toJson().warnings) {
+            console.warn(item)
           }
-          const indexJs = require(indexFilePath)
-          const components = Object.keys(indexJs)
-          for (const componentName of components) {
-            const cls = indexJs[componentName]
-            if (typeof cls !== 'function') {
-              throw new Error(`${componentName} is not a Class`)
+        }
+        if (stats.hasErrors()) {
+          for (const item of stats.toJson().errors) {
+            console.error(item)
+          }
+        }
+        if (!(err instanceof Error) && !stats.hasErrors() && !stats.hasWarnings()) {
+          const indexFilePath = path.join(baseConfig.output.path, baseConfig.output.filename)
+          try {
+            const manifest: Manifest = {
+              id: manifestFile.id,
+              version: manifestFile.version,
+              name: manifestFile.version,
+              description: manifestFile.description,
+              components: []
             }
-            const item = new cls()
-            manifest.components.push(item.manifest)
+            const indexJs = require(indexFilePath) // eslint-disable-line @typescript-eslint/no-var-requires
+            const components = Object.keys(indexJs)
+            for (const componentName of components) {
+              const CLS = indexJs[componentName]
+              if (typeof CLS !== 'function') {
+                throw new Error(`${componentName} is not a Class`)
+              }
+              const item = new CLS()
+              manifest.components.push(item.manifest)
+            }
+            fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest))
+          } catch (error) {
+            console.error(`parse index file ${indexFilePath} failed`)
+            console.error(error)
+            process.exit(1)
           }
-          fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest))
-        } catch (error) {
-          console.error(`parse index file ${indexFilePath} failed`)
-          console.error(error)
-          process.exit(1)
+          console.log('success!')
         }
-        console.log('success!')
-      }
-    })
-  } else {
-    instance.watch({}, () => { })
+      })
+    } else {
+      instance.watch({}, () => { })
+    }
   }
 }
 
