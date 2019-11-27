@@ -27,7 +27,16 @@ const config = {
   resolveLoader: {
     modules: ['node_modules', path.join(__dirname, 'node_modules'), path.join(__dirname, '..', 'node_modules')]
   },
-  externals: ['react'],
+  externals: [
+    {
+      react: {
+        commonjs: "React",
+        commonjs2: "React",
+        amd: "React",
+        root: "React"
+      }
+    }
+  ],
   module: {
     rules: [{
       test: /\.(js|jsx)$/,

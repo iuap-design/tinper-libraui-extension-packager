@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import baseConfig from './webpack.config'
 import path from 'path'
 import fs from 'fs'
-import { Manifest } from '@mdf/extension'
+import { Manifest } from '@metaui/extension'
 
 interface PackagerOptions {
   command: 'build' | 'debug'

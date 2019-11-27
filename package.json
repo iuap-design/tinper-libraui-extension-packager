@@ -1,11 +1,12 @@
 {
-  "name": "@mdf/extension-packager",
+  "name": "@metaui/extension-packager",
   "version": "0.0.0",
   "description": "MDF components extension packager",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "bin": "./lib/cli.js",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "rm -rf lib && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts,.tsx",
@@ -75,6 +76,7 @@
     "react": "^16.12.0"
   },
   "dependencies": {
+    "@metaui/extension": "^0.3.1",
     "autoprefixer": "^9.7.2",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
