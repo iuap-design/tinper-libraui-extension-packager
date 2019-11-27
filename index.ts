@@ -72,7 +72,11 @@ const packager = (options: PackagerOptions): void => {
           const indexJs = require(indexFilePath)
           const components = Object.keys(indexJs)
           for (const componentName of components) {
-            const item = new indexJs[componentName]()
+            const cls = indexJs[componentName]
+            if (typeof cls !== 'function') {
+              throw new Error(`${componentName} is not a Class`)
+            }
+            const item = new cls()
             manifest.components.push(item.manifest)
           }
           fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest))
