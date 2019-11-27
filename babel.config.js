@@ -5,6 +5,8 @@ module.exports = {
   ],
   plugins: [
     ['module-resolver'],
+    ['import', { libraryName: 'antd', libraryDirectory: 'lib', style: true }, 'ant'],
+    ['import', { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: true }, 'antd-mobile'],
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
     [
