@@ -3,6 +3,7 @@ import autoprefixer from 'autoprefixer'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import TsImportPluginFactory from 'ts-import-plugin'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -52,8 +53,15 @@ const config = {
       test: /\.tsx?$/,
       exclude: path.resolve(__dirname, 'node_modules'),
       use: [
-        { loader: 'babel-loader' },
-        { loader: 'awesome-typescript-loader', options: { silent: true } }
+        { loader: 'awesome-typescript-loader', options: {
+          silent: true,
+          getCustomTransformers: () => ({
+            before: [ TsImportPluginFactory([
+              { libraryName: 'antd', libraryDirectory: 'lib', style: true },
+              { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: 'css' }
+            ]) ]
+          }),
+        } }
       ]
     }, {
       test: /\.(js|jsx)$/,
@@ -75,7 +83,38 @@ const config = {
         name: 'fonts/[name].[md5:hash:hex:7].[ext]'
       }
     }, {
-      test: /\.less$/,
+      test: /\.(css|less)$/,
+      include: /node_modules/,
+      use: [{
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          hmr: !isProduction
+        }
+      }, {
+        loader: 'css-loader',
+        options: {
+          modules: false,
+          importLoaders: 2,
+          sourceMap: !isProduction
+        }
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          sourceMap: !isProduction,
+          plugins: [
+            autoprefixer()
+          ]
+        }
+      }, {
+        loader: 'less-loader',
+        options: {
+          sourceMap: !isProduction
+        }
+      }]
+    }, {
+      test: /\.(css|less)$/,
+      exclude: /node_modules/,
       use: [{
         loader: MiniCssExtractPlugin.loader,
         options: {
@@ -101,30 +140,6 @@ const config = {
         loader: 'less-loader',
         options: {
           sourceMap: !isProduction
-        }
-      }]
-    }, {
-      test: /\.css$/,
-      use: [{
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-          hmr: !isProduction
-        }
-      }, {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          importLoaders: 2,
-          sourceMap: !isProduction
-        }
-      }, {
-        loader: 'postcss-loader',
-        options: {
-          ident: 'postcss',
-          sourceMap: !isProduction,
-          plugins: [
-            autoprefixer()
-          ]
         }
       }]
     }]
