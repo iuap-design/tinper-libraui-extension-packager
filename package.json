@@ -1,6 +1,6 @@
 {
   "name": "@metaui/extension-packager",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MDF components extension packager",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
