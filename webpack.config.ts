@@ -31,10 +31,10 @@ const config = {
   externals: [
     {
       react: {
-        commonjs: 'React',
+        commonjs: 'react',
         commonjs2: 'react',
         amd: 'react',
-        root: 'react'
+        root: 'React'
       },
       'react-dom': {
         root: 'ReactDOM',
