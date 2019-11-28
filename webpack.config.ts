@@ -62,7 +62,10 @@ const config = {
                 { libraryName: 'antd', libraryDirectory: 'lib', style: true },
                 { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: 'css' }
               ])]
-            })
+            }),
+            compilerOptions: {
+              module: 'esnext'
+            }
           }
         }
       ]
