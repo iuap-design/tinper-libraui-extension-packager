@@ -32,9 +32,16 @@ const config = {
     {
       react: {
         commonjs: 'React',
-        commonjs2: 'React',
-        amd: 'React',
-        root: 'React'
+        commonjs2: 'react',
+        amd: 'react',
+        root: 'react'
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom',
+        umd: 'react-dom'
       }
     }
   ],
