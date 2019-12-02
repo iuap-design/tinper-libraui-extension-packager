@@ -1,6 +1,6 @@
-# @metaui/extension-packager
+# @libraui/extension-packager
 
-Metaui 扩展打包工具
+Libraui 扩展打包工具
 
 ## 贡献代码
 
