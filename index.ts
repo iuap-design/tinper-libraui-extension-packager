@@ -77,7 +77,7 @@ const packager = (options: PackagerOptions): void => {
               const item = new CLS()
               manifest.components.push(item.manifest)
             }
-            fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest))
+            fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest, customJsonStringify))
           } catch (error) {
             console.error(`parse index file ${indexFilePath} failed`)
             console.error(error)
@@ -90,6 +90,23 @@ const packager = (options: PackagerOptions): void => {
       instance.watch({}, () => { })
     }
   }
+}
+
+export function customJsonStringify (key: any, value: any): string {
+  if (typeof value === 'function') {
+    return `/Function(${value.toString()})/`
+  }
+  return value
+}
+
+export function customJsonParse (key: any, value: any): any {
+  if (typeof value === 'string' &&
+      value.startsWith('/Function(') &&
+      value.endsWith(')/')) {
+    value = value.substring(10, value.length - 2)
+    return eval(`(${value})`) // eslint-disable-line no-eval
+  }
+  return value
 }
 
 export default packager
