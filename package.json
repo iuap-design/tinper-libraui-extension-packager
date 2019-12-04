@@ -1,6 +1,6 @@
 {
   "name": "@libraui/extension-packager",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "MDF components extension packager",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
