@@ -23,5 +23,5 @@ if (directory === undefined || !allowCommands.includes(command)) {
 packager({
   command: command as any,
   directory,
-  outputDir: argv.output || path.join(directory, 'dist')
+  outputDir: argv.output as string || path.join(directory, 'dist')
 })
