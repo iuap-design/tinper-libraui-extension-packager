@@ -74,8 +74,8 @@ const packager = (options: PackagerOptions): void => {
               if (typeof CLS !== 'function') {
                 throw new Error(`${componentName} is not a Class`)
               }
-              const item = new CLS()
-              manifest.components.push(item.manifest)
+              const componentManifest = CLS.prototype.manifest || (new CLS()).manifest
+              manifest.components.push(componentManifest)
             }
             fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest, customJsonStringify))
           } catch (error) {
