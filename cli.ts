@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import packager from './index'
 import * as yargs from 'yargs'
+import path from 'path'
 
 function showHelp (): void {
   console.log(`
@@ -21,5 +22,6 @@ if (directory === undefined || !allowCommands.includes(command)) {
 
 packager({
   command: command as any,
-  directory
+  directory,
+  outputDir: argv.output || path.join(directory, 'dist')
 })

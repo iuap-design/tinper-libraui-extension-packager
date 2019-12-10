@@ -7,6 +7,7 @@ import { Manifest } from '@libraui/extension'
 interface PackagerOptions {
   command: 'build' | 'debug'
   directory: string
+  outputDir: string
 }
 
 interface ManifestFile {
@@ -39,7 +40,7 @@ const packager = (options: PackagerOptions): void => {
   } else {
     baseConfig.entry.index = manifestFile.index
     // baseConfig.output.library = `MDF_${manifestFile.id}`
-    baseConfig.output.path = path.resolve(path.join(options.directory, 'build'))
+    baseConfig.output.path = options.outputDir || path.resolve(path.join(options.directory, 'dist'))
     const manifestOutputPath = path.join(baseConfig.output.path, 'manifest.json')
     const instance = webpack(baseConfig)
     if (options.command === 'build') {
