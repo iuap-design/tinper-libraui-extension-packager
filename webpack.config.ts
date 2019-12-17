@@ -95,7 +95,7 @@ const getConfig = (config: WebpackConfigOptions): Configuration => ({
       loader: 'url-loader',
       options: {
         limit: 8192,
-        name: 'styles/default/images/[hash:8].[name].[ext]'
+        name: 'images/[hash:8].[name].[ext]'
       }
     }, {
       test: /\.(woff|eot|ttf)\??.*$/,
