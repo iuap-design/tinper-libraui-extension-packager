@@ -4,9 +4,6 @@ import path from 'path'
 import fs from 'fs'
 import { Manifest } from '@libraui/extension'
 
-interface AnyObject<T> {
-  [x: string]: T
-}
 interface PackagerOptions {
   command: 'build' | 'debug'
   directory: string
@@ -46,7 +43,8 @@ const packager = (options: PackagerOptions): void => {
     const webpackOptions: WebpackConfigOptions = {
       outputPath: path.resolve(options.outputDir || path.join(options.directory, 'dist')),
       indexPath: manifestFile.index,
-      outputFilename: 'index.js'
+      outputFilename: 'index.js',
+      lessVars: manifestFile.lessVars
     }
     const webpackConfig = getConfig(webpackOptions)
     const manifestOutputPath = path.join(webpackOptions.outputPath, 'manifest.json')

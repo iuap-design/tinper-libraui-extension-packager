@@ -12,6 +12,7 @@ export interface WebpackConfigOptions {
   indexPath: string
   outputPath: string
   outputFilename: string
+  lessVars?: AnyObject<string>
 }
 
 const getConfig = (config: WebpackConfigOptions): Configuration => ({
@@ -130,7 +131,8 @@ const getConfig = (config: WebpackConfigOptions): Configuration => ({
         loader: 'less-loader',
         options: {
           javascriptEnabled: true,
-          sourceMap: !isProduction
+          sourceMap: !isProduction,
+          modifyVars: config.lessVars || {}
         }
       }]
     }, {
@@ -161,7 +163,8 @@ const getConfig = (config: WebpackConfigOptions): Configuration => ({
         loader: 'less-loader',
         options: {
           javascriptEnabled: true,
-          sourceMap: !isProduction
+          sourceMap: !isProduction,
+          modifyVars: config.lessVars || {}
         }
       }]
     }]
