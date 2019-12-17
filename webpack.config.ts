@@ -67,7 +67,7 @@ const config = {
             getCustomTransformers: () => ({
               before: [TsImportPluginFactory([
                 { libraryName: 'antd', libraryDirectory: 'lib', style: true },
-                { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: 'css' }
+                { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: true }
               ])]
             }),
             compilerOptions: {
