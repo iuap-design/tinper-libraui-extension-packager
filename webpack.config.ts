@@ -122,6 +122,7 @@ const config = {
       }, {
         loader: 'less-loader',
         options: {
+          javascriptEnabled: true,
           sourceMap: !isProduction
         }
       }]
@@ -152,6 +153,7 @@ const config = {
       }, {
         loader: 'less-loader',
         options: {
+          javascriptEnabled: true,
           sourceMap: !isProduction
         }
       }]
