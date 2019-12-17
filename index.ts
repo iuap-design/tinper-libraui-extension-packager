@@ -1,9 +1,12 @@
 import webpack from 'webpack'
-import baseConfig from './webpack.config'
+import getConfig, { WebpackConfigOptions } from './webpack.config'
 import path from 'path'
 import fs from 'fs'
 import { Manifest } from '@libraui/extension'
 
+interface AnyObject<T> {
+  [x: string]: T
+}
 interface PackagerOptions {
   command: 'build' | 'debug'
   directory: string
@@ -16,6 +19,7 @@ interface ManifestFile {
   name: string
   description: string
   index: string // 入口文件
+  lessVars?: AnyObject<string> // less变量
 }
 
 function getManifestFile (dir: string): ManifestFile | undefined {
@@ -25,6 +29,7 @@ function getManifestFile (dir: string): ManifestFile | undefined {
 
     // 加载 manifest.json 文件的内容
     const manifest: ManifestFile = JSON.parse(manifestFileContent)
+    manifest.lessVars = manifest.lessVars || {}
 
     return manifest
   } catch (error) {
@@ -38,11 +43,14 @@ const packager = (options: PackagerOptions): void => {
   if (!manifestFile) {
     process.exit(1)
   } else {
-    baseConfig.entry.index = manifestFile.index
-    // baseConfig.output.library = `MDF_${manifestFile.id}`
-    baseConfig.output.path = path.resolve(options.outputDir || path.join(options.directory, 'dist'))
-    const manifestOutputPath = path.join(baseConfig.output.path, 'manifest.json')
-    const instance = webpack(baseConfig)
+    const webpackOptions: WebpackConfigOptions = {
+      outputPath: path.resolve(options.outputDir || path.join(options.directory, 'dist')),
+      indexPath: manifestFile.index,
+      outputFilename: 'index.js'
+    }
+    const webpackConfig = getConfig(webpackOptions)
+    const manifestOutputPath = path.join(webpackOptions.outputPath, 'manifest.json')
+    const instance = webpack(webpackConfig)
     if (options.command === 'build') {
       instance.run((err, stats) => {
         if (err instanceof Error) {
@@ -59,7 +67,7 @@ const packager = (options: PackagerOptions): void => {
           }
         }
         if (!(err instanceof Error) && !stats.hasErrors() && !stats.hasWarnings()) {
-          const indexFilePath = path.join(baseConfig.output.path, baseConfig.output.filename)
+          const indexFilePath = path.join(webpackOptions.outputPath, webpackOptions.outputFilename)
           try {
             const manifest: Manifest = {
               id: manifestFile.id,

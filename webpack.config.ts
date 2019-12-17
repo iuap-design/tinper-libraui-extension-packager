@@ -4,15 +4,22 @@ import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TsImportPluginFactory from 'ts-import-plugin'
+import { Configuration } from 'webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const config = {
+export interface WebpackConfigOptions {
+  indexPath: string
+  outputPath: string
+  outputFilename: string
+}
+
+const getConfig = (config: WebpackConfigOptions): Configuration => ({
   mode: isProduction ? 'production' as const : 'development' as const,
-  entry: { index: 'index.js' },
+  entry: { index: config.indexPath },
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'index.js',
+    path: config.outputPath,
+    filename: config.outputFilename,
     library: '__MDX__',
     libraryTarget: 'umd' as const,
     globalObject: 'this'
@@ -181,6 +188,6 @@ const config = {
       : []
   ),
   devtool: isProduction ? 'source-map' as const : 'eval-source-map' as const
-}
+})
 
-export default config
+export default getConfig
