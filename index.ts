@@ -51,6 +51,7 @@ const packager = (options: PackagerOptions): void => {
     const instance = webpack(webpackConfig)
     if (options.command === 'build') {
       instance.run((err, stats) => {
+        console.log(stats.toString({ colors: true }))
         if (err instanceof Error) {
           console.error(err)
         }
