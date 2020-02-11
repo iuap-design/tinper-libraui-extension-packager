@@ -1,4 +1,4 @@
-# @libraui/extension-packager
+# libraui-extension-packager
 
 Libraui 扩展打包工具
 
