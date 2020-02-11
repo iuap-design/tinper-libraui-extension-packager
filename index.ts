@@ -80,7 +80,9 @@ const packager = (options: PackagerOptions): void => {
             for (const componentName of components) {
               const CLS = indexJs[componentName]
               if (typeof CLS !== 'function') {
-                throw new Error(`${componentName} is not a Class`)
+                // throw new Error(`${componentName} is not a Class`)
+                console.warn(`${componentName} is not a Class`)
+                continue
               }
               const componentManifest = CLS.manifest || (new CLS()).manifest
               manifest.components.push(componentManifest)
