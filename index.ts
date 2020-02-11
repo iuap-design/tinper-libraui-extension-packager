@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import getConfig, { WebpackConfigOptions } from './webpack.config'
 import path from 'path'
 import fs from 'fs'
-import { Manifest } from '@libraui/extension'
+import { Manifest } from 'libraui-extension'
 
 interface PackagerOptions {
   command: 'build' | 'debug'
